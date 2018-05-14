@@ -1,0 +1,2 @@
+# pyLisp
+オールPython製の純Lisp+アルファな何か。ただし仕様はSchemeのほうを参考にしている。ので、LispよりSchemeもどきといったほうが近いかもしれない。
