@@ -104,77 +104,77 @@ class sexp:
         prt('@evalSYMatm spec',specs[self.getspec()])
         
         if self.getspec() == atm_sym :
-        	prt('@evalSYMatm sexp=sym', self.toStrV())
-        	
-        	if ontab(self.val, tab):
-        		rep = look(self.val, tab)
-        		
-        		if rep.getspec() not in [ atm_int , atm_str , atm_symb, boolspec ]:
-        			# list or sym
-        			r = rep.evalSYM(tab)
-        		else:
-        			r = rep
-        			
-        		prt('@evalSYMatm sexp=>', r.toStrV())
-        		return r
-        		
-        	else:
-        		msg('@evalSYM sexp: unknown symbol',self.val)
-        		
-        		#raise Exception
-        		
+            prt('@evalSYMatm sexp=sym', self.toStrV())
+            
+            if ontab(self.val, tab):
+                rep = look(self.val, tab)
+                
+                if rep.getspec() not in [ atm_int , atm_str , atm_symb, boolspec ]:
+                    # list or sym
+                    r = rep.evalSYM(tab)
+                else:
+                    r = rep
+                    
+                prt('@evalSYMatm sexp=>', r.toStrV())
+                return r
+                
+            else:
+                msg('@evalSYM sexp: unknown symbol',self.val)
+                
+                #raise Exception
+                
         return self
         
-        				
+                        
     def evalSYM(self, tab):
         if self.getspec() != lst:
-        	prt('@evalSYM','not List')
-        	prt('@evalSYM notList',self.toStrV())
-        	return self.evalSYMatm(tab)
-        	
+            prt('@evalSYM','not List')
+            prt('@evalSYM notList',self.toStrV())
+            return self.evalSYMatm(tab)
+            
         else: # spec == lst 
-        	prt('@evalSYM','List')
-        	carv = self.carval
-        	cdrv = self.cdrval
-        	prt('@evalSYM lst carv.spec', specs[carv.getspec()])
-        	prt('@evalSYM lst carv', carv.toStr())
-        	prt('@evalSYM lst cdrv.spec', specs[cdrv.getspec()])
-        	prt('@evalSYM lst cdrv', cdrv.toStr())
-        	
-        	if carv.getspec() == atm_sym :
-        		prt('@evalSYM lst carv=sym START evalSYMatm', carv.toStrV())
-        		carrep = carv.evalSYMatm(tab)
-        		prt('@evalSYM lst carv=sym END evalSYMatm=>', carrep.toStrV())	
-        		
-        	elif carv.getspec() in [ atm_int, atm_str, atm_symb, boolspec]:
-        		prt('@evalSYM lst carv=intstrsymbbool', carv.toStrV())
-        		carrep = carv
-        	
-        	else: # carv == lst
-        		prt('@evalSYM lst carv=lst START eval car', carv.toStrV())
-        		carrep = carv.evalSYM(tab)
-        		prt('@evalSYM lst carv=lst END eval car=>', carrep.toStrV())
-        			
+            prt('@evalSYM','List')
+            carv = self.carval
+            cdrv = self.cdrval
+            prt('@evalSYM lst carv.spec', specs[carv.getspec()])
+            prt('@evalSYM lst carv', carv.toStr())
+            prt('@evalSYM lst cdrv.spec', specs[cdrv.getspec()])
+            prt('@evalSYM lst cdrv', cdrv.toStr())
+            
+            if carv.getspec() == atm_sym :
+                prt('@evalSYM lst carv=sym START evalSYMatm', carv.toStrV())
+                carrep = carv.evalSYMatm(tab)
+                prt('@evalSYM lst carv=sym END evalSYMatm=>', carrep.toStrV())    
+                
+            elif carv.getspec() in [ atm_int, atm_str, atm_symb, boolspec]:
+                prt('@evalSYM lst carv=intstrsymbbool', carv.toStrV())
+                carrep = carv
+            
+            else: # carv == lst
+                prt('@evalSYM lst carv=lst START eval car', carv.toStrV())
+                carrep = carv.evalSYM(tab)
+                prt('@evalSYM lst carv=lst END eval car=>', carrep.toStrV())
+                    
         
         
-        	if carrep.val == 'quote' and carrep.getspec() == atm_symb:
-        		prt('@evalSYM lst carv=quote', carv.toStrV())
-        		cdrrep = cdrv
-        		prt('@evalSYM lst carv=quote cdrv=', cdrrep.toStrV())
-        	else:
-        		prt('@evalSYM lst START eval cdr',cdrv.toStrV())
-        		prt('@evalSYM lst cdrspec',specs[cdrv.getspec()])
-        		cdrrep = cdrv.evalSYM(tab)
-        		print(cdrrep)
-        		prt('@evalSYM lst END eval cdr=>', cdrrep.toStrV())
-        	
-        	prt('@evalSYM lst car=sym cdr=>', cdrrep.toStrV())
+            if carrep.val == 'quote' and carrep.getspec() == atm_symb:
+                prt('@evalSYM lst carv=quote', carv.toStrV())
+                cdrrep = cdrv
+                prt('@evalSYM lst carv=quote cdrv=', cdrrep.toStrV())
+            else:
+                prt('@evalSYM lst START eval cdr',cdrv.toStrV())
+                prt('@evalSYM lst cdrspec',specs[cdrv.getspec()])
+                cdrrep = cdrv.evalSYM(tab)
+                print(cdrrep)
+                prt('@evalSYM lst END eval cdr=>', cdrrep.toStrV())
+            
+            prt('@evalSYM lst car=sym cdr=>', cdrrep.toStrV())
         
-        	r = conscell(carrep, cdrrep, tab)
+            r = conscell(carrep, cdrrep, tab)
         
-        	prt('@evalSYM lst=>', r.toStrV())
+            prt('@evalSYM lst=>', r.toStrV())
         
-        	return r
+            return r
         
         
     def evalsexp(self, body, tab):
@@ -538,36 +538,36 @@ class env:
     
     
     def op_load(self,obj,tab):
-    	fx = obj.car().eval(tab).val
-    	prt('@load fx',fx)
-    	fn = fx.replace('"','')
-    	prt('@load fn',fn)
-    	if True: #try:
-    		with open(fn,'rt') as f:
-    			line = f.readline()
-    			while line :
-    				o = lisp.token(line)
-    				prt('token:',o.toStrV())
-    				try:
-    					e = lisp.eval(o)
-    				except:
-    					e = traceback.print_exc()
+        fx = obj.car().eval(tab).val
+        prt('@load fx',fx)
+        fn = fx.replace('"','')
+        prt('@load fn',fn)
+        if True: #try:
+            with open(fn,'rt') as f:
+                line = f.readline()
+                while line :
+                    o = lisp.token(line)
+                    prt('token:',o.toStrV())
+                    try:
+                        e = lisp.eval(o)
+                    except:
+                        e = traceback.print_exc()
     
-    				try:
-    					p = lisp.printer(e)
-    				except:
-    					print(traceback.print_exc())
-    					
-    				line = f.readline()
-    				
-    	else: #except:
+                    try:
+                        p = lisp.printer(e)
+                    except:
+                        print(traceback.print_exc())
+                        
+                    line = f.readline()
+                    
+        else: #except:
     
-    		raise Exception
-    		print(traceback.print_exc())
-    		return nil
-    			
-    	return e
-    		
+            raise Exception
+            print(traceback.print_exc())
+            return nil
+                
+        return e
+            
     
     
     def op_cons(self,carv,cdrv,tab):
@@ -634,27 +634,19 @@ class env:
     
     
     def op_cond(self,obj,tab):
-    	op = obj.car()
-    	cdrv = obj.cdr()
-    	prt('@op_cond op', op.toStrV())
-    	prt('@op_cond cdrv', cdrv.toStrV())
-    	chk = self.cond_op(op, tab)
-    	prt('@op_cond chl', chk.toStrV())
-    	if chk != nil :
-    		return chk
-    	else:
-    		return self.op_cond(cdrv, tab)
-    
-    def cond_op(self,op, tab):
-    	cond = op.car().eval(tab).val
-    	cdrv = op.cdr().car().cdr()
-    	prt('@cond_op cond',cond)
-    	prt('@cond_op cdrv',cdrv.toStrV())
-    	if cond == False :
-    		return nil
-    	else:
-    		return cdrv.eval(tab)
-    		
+        op = obj.car()
+        cdrv = obj.cdr()
+        prt('@op_cond op', op.toStrV())
+        prt('@op_cond cdrv', cdrv.toStrV())
+        cond = op.car().eval(tab).val
+        opcdrv = op.cdr().car()
+        prt('@op_cond op.cond', cond)
+        prt('@op_cond op.cdrv', opcdrv.toStrV())
+        if cond == False :
+            return self.op_cond(cdrv, tab)
+        else:
+            return opcdrv.eval(tab)
+            
     
     def op_if(self,obj,tab):
         cond = obj.car().eval(tab).val
@@ -849,7 +841,7 @@ class tokenizer:
         c = self.nextc()
         while c != False:
             #print('c:',c)
-            if  c ==' ' or c == '\t' or c == '\n' :
+            if  c ==' ' or c == '¥t' or c == '¥n' :
                 self.addc(str)
                 str = ''
             elif c in self.dl:
@@ -952,7 +944,7 @@ class repl:
     
     def token(self,txt):
         if txt[0] == '!':
-        	return nil
+            return nil
         
         tk = tokenizer(txt, self.delimiter)
         inputlist = tk.tokenlist()
@@ -963,7 +955,7 @@ class repl:
     
     def eval(self,obj):
         if obj == nil:
-        	return nil
+            return nil
         ev = self.l.eval(obj,self.tab)
         return ev
     
@@ -1054,19 +1046,8 @@ lisp = repl(ltab)
 o=lisp.l
 
 
-txt='(lambda (x y) (+ (* x y) (- x y)))'
-#txt='(lambda (x y) (+ x y))'
-#txt='(lambda (x) (+ x 1 (* x 2)))'
-txa='3 2'
-#txa='2'
-txcl='('+txt+txa+')'
-#txc='(define ltest '+txt+')'
-txc='(define x (lambda (y) (* y 2)))'
-txc='(define f (lambda (x y) (if (eq x y) (cons x (* y x)) (cons (* x 10) (* y 10)))))'
-txc='(define fact (lambda (x) (if (eq x 0) 1 (* x (fact (- x 1))))))'
-txc='(define bank-amount ((lambda (amount) (lambda (n) (set! amount (+ amount n)))) 100))'
 txc ='(load "init.l")'
-#txc= txcl
+
 
 print(txc)
 
@@ -1088,3 +1069,4 @@ while True:
         print(traceback.print_exc())
     
     txt = lisp.readtxt()
+
