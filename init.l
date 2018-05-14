@@ -1,0 +1,6 @@
+!(define fc (lambda (y) (* y 2)))
+(define f (lambda (x y) (if (eq x y) (cons x (* y x)) (cons (* x 10) (* y 10)))))
+(define fact (lambda (x) (if (eq x 0) 1 (* x (fact (- x 1))))))
+(define bank-amount ((lambda (amount) (lambda (n) (set! amount (+ amount n)))) 100))
+((lambda (x y) (+ (* x y) (- x y))) 3 2)
+(cond (((eq 1 1) 1) ((eq 2 2) (fact 6))))
