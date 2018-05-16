@@ -28,7 +28,7 @@ specs = { empty:'EMPTY' ,
 gsymtab = {}  # symbol table
 gtab = gsymtab
 
-traceflg = False
+traceflg = True
 
 def prt(a,b):
     if traceflg == True:
