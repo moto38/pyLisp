@@ -27,6 +27,8 @@ specs = { empty:'EMPTY' ,
 
 gsymtab = {}  # symbol table
 gtab = gsymtab
+numre = re.compile(r'[+-]?\d+')
+strre = re.compile(r'"')
 
 traceflg = True
 
@@ -934,14 +936,19 @@ class sexpobj:
             prt('@mksexp','nil')
             return nil
         else:
+            '''
             try:
-                vi = v.isdigit()
+                #vi = v.isdigit()
+                vi = numre.match(v)
+                prt('@mksexp numre.match', vi)
             except:
                 vi = False
-            if vi != False :
+            #if vi != False :
+            '''
+            if numre.match(v):
                 prt('@mksexp','int')
                 r = sexp(atm_int, int(v), tab)
-            elif re.match('"',v) :
+            elif strre.match(v) :
                 prt('@mksexp','str')
                 r = sexp(atm_str, v, tab)
             else:
