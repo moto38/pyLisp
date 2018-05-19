@@ -485,6 +485,7 @@ class env:
     
     def update(self,tab, name, body):
         prt('@update key:val','{0}:{1}'.format(name, body.val))
+        '''
         if lookup(name, tab) : 
             if tab[name].getspec() in [ atm_int , atm_str ]: 
            
@@ -493,7 +494,9 @@ class env:
                 self.add(tab, name, body)
         else:
             self.add(tab, name, body)
-                
+        '''
+        
+        self.add(tab, name, body)        
         return tab
             
             
@@ -514,6 +517,7 @@ class env:
             return conscell(c, nil, tab)
         else:
             return conscell(c, self.op_ltab(cdrv, tab), tab)
+    
     
     def op_tab(self,tab):
         
@@ -613,8 +617,9 @@ class env:
         # (eq (a (b (c . nil))))
         carv = obj.car().eval(tab).val
         cdrv = obj.cdr()
-        if cdrv == nil :
+        if cdrv == nil :  #only 1 arg
             return t
+            
         eqv = self.eqsub(cdrv,tab)
         prt('@eq_op carv cdrv', '{0},{1}'.format(carv , eqv))
         if carv == eqv :
@@ -789,7 +794,9 @@ class env:
 
 
     def op_let(self,key,body,tab):
-        self.update(tab, key, body)
+        #self.update(tab, key, body)
+        self.add(tab, key, body)
+        
 
     def let_op(self,obj,tab):
         name = obj.car().val
@@ -1075,7 +1082,7 @@ lisp = repl(ltab)
 o=lisp.l
 
 
-txc ='(load "init.l")'
+txc ='(load "init.txt")'
 
 
 print(txc)
