@@ -16,26 +16,26 @@
 - cons / car / cdr
 - atom
 - eq
-  オブジェクト比較ではなく値比較
+  - オブジェクト比較ではなく値比較
 - < / >
 - 四則演算
-  割り算は小数返すpython依存
+  - 割り算は小数返すpython依存
 - if / cond
-  ex. (if (func) (procT) (procNil)
+  - ex. (if (func) (procT) (procNil)
 - t / nil
 - lambda
-  ex. (lambda (x y) (+ x y))
+  - ex. (lambda (x y) (+ x y))
 - define
-  ex. (define a 1)
-  ex. (define f (lambda (n) (+ n 1)))
+  - ex. (define a 1)
+  - ex. (define f (lambda (n) (+ n 1)))
 - set!
   ローカルシンボル定義
   使い方は define と一緒
 - and / or
 - quote
 - シンボルテーブル参照
-  ex. グローバル (showtab)
-  ex. ローカル (showlocal f)
+  - ex. グローバル (showtab)
+  - ex. ローカル (showlocal f)
 
 
 
