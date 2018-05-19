@@ -1082,7 +1082,7 @@ lisp = repl(ltab)
 o=lisp.l
 
 
-txc ='(load "init.txt")'
+txc ='(load "init.l")'
 
 
 print(txc)
